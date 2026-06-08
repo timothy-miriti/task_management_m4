@@ -5,9 +5,9 @@ def _list_all_tasks():
     if not tasks:
         print("No tasks available.")
         return
-    for i, t in enumerate(tasks, start=1):
-        status = "✓" if t.get("completed") else " "
-        print(f"{i}. [{status}] {t['title']} (due: {t['due_date']})")
+    for i, task in enumerate(tasks, start=1):
+        status = "✓" if task.get("completed") else " "
+        print(f"{i}. [{status}] {task['title']} (due: {task['due_date']})")
 
 
 def main():
@@ -17,19 +17,18 @@ def main():
         print("2. Mark Task as Complete")
         print("3. View Pending Tasks")
         print("4. View Progress")
-        print("5. List All Tasks")
-        print("6. Exit")
-        choice = input("Enter your choice (1-6): ")
+        print("5. Exit")
+        choice = input("Enter your choice (1-5): ")
 
         if choice == "1":
             title = input("Title: ")
             description = input("Description: ")
             due_date = input("Due date (YYYY-MM-DD): ")
-            ok, res = add_task(title, description, due_date)
+            ok, result = add_task(title, description, due_date)
             if ok:
                 print("Task added successfully!")
             else:
-                print(res)
+                print(result)
 
         elif choice == "2":
             if not tasks:
@@ -37,28 +36,25 @@ def main():
                 continue
             _list_all_tasks()
             idx = input("Enter task number to mark complete: ")
-            ok, res = mark_task_as_complete(idx)
+            ok, result = mark_task_as_complete(idx)
             if ok:
                 print("Task marked as complete!")
             else:
-                print(res)
+                print(result)
 
         elif choice == "3":
             pending = view_pending_tasks()
             if not pending:
                 print("No pending tasks. Great job!")
             else:
-                for i, t in enumerate(pending, start=1):
-                    print(f"{i}. {t['title']} (due: {t['due_date']}) - {t['description']}")
+                for i, task in enumerate(pending, start=1):
+                    print(f"{i}. {task['title']} (due: {task['due_date']}) - {task['description']}")
 
         elif choice == "4":
-            prog = calculate_progress()
-            print(f"Progress: {prog}% completed")
+            progress = calculate_progress()
+            print(f"Progress: {progress}% completed")
 
         elif choice == "5":
-            _list_all_tasks()
-
-        elif choice == "6":
             print("Exiting the program...")
             break
 
