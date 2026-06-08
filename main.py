@@ -27,9 +27,9 @@ def main():
             due_date = input("Due date (YYYY-MM-DD): ")
             ok, res = add_task(title, description, due_date)
             if ok:
-                print("Task added:", res)
+                print("Task added successfully!")
             else:
-                print("Error adding task:", res)
+                print(res)
 
         elif choice == "2":
             if not tasks:
@@ -39,9 +39,9 @@ def main():
             idx = input("Enter task number to mark complete: ")
             ok, res = mark_task_as_complete(idx)
             if ok:
-                print("Marked complete:", res)
+                print("Task marked as complete!")
             else:
-                print("Error:", res)
+                print(res)
 
         elif choice == "3":
             pending = view_pending_tasks()

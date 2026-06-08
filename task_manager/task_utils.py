@@ -13,22 +13,17 @@ def add_task(title, description, due_date):
 
     Returns (True, task) on success or (False, error_message) on failure.
     """
-    ok, res = validate_task_title(title)
-    if not ok:
-        return False, res
-
-    ok, res_desc = validate_task_description(description)
-    if not ok:
-        return False, res_desc
-
-    ok, res_due = validate_due_date(due_date)
-    if not ok:
-        return False, res_due
+    try:
+        cleaned_title = validate_task_title(title)
+        cleaned_description = validate_task_description(description)
+        cleaned_due_date = validate_due_date(due_date)
+    except ValueError as exc:
+        return False, str(exc)
 
     task = {
-        "title": res,
-        "description": res_desc,
-        "due_date": res_due,
+        "title": cleaned_title,
+        "description": cleaned_description,
+        "due_date": cleaned_due_date,
         "completed": False,
     }
     tasks.append(task)
